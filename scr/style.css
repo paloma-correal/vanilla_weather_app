@@ -30,6 +30,10 @@ li:first-letter {
     text-transform: capitalize;
   }
 
+  a{
+      color: mediumslateblue;
+  }
+
 .weather-app-wrapper {
     max-width: 600px;
     margin: 30px auto;
@@ -93,3 +97,5 @@ li:first-letter {
   .weather-forecast-temperatures {
     font-size: 13px;
   }
+
+  
