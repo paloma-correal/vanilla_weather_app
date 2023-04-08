@@ -34,9 +34,13 @@ li:first-letter {
       color: mediumslateblue;
   }
 
+  .container {
+    max-width:fit-content;
+}
+
 .weather-app-wrapper {
     max-width: 600px;
-    margin: 30px auto;
+    margin: 40px auto;
   }
 
 .weather-app{
