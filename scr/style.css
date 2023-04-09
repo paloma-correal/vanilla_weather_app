@@ -34,6 +34,10 @@ li:first-letter {
       color: mediumslateblue;
   }
 
+  .btn-primary{
+     background-color: rgb(78, 27, 198);
+  }
+    
   .container {
     max-width:fit-content;
 }
