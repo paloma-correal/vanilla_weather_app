@@ -46,7 +46,7 @@ function displayForecast(response){
                <div class = "weather-forecast-date">${formatDate(forcastDay.dt)}</div>
                ${index}
                <img
-               src = "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forcastDay.weather[0].icon}.png"
+               src = "https://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forecastDay.weather[0].icon}.png"
                alt = ""
                width = "46"
             />
@@ -69,7 +69,7 @@ function displayForecast(response){
 function getForecast (coordinates){
     console.log(coordinates);
     let apiKey = "4t499e5cbb23dd05b04o16b8befa8cff";
-    let apiUrl = `http://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
+    let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(displayForecast);
 }
 
@@ -103,10 +103,9 @@ function displayTemperature(response) {
 }
 
 
-
 function search(city) {
     let apiKey = "4t499e5cbb23dd05b04o16b8befa8cff";
-    let apiUrl = `http://api.shecodes.io/weather/v1/current?query=${city}&key=4t499e5cbb23dd05b04o16b8befa8cff&units=metric`;
+    let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(displayTemperature);
 }
 
