@@ -22,7 +22,7 @@ function formatDate(timestamp) {
     return `${day} ${hours}:${minutes}`;
 }
 
-function formatDate(timestamp){
+function formatDay(timestamp){
     let date = new Date(timestamp * 1000);
     let day = date.getDay();
     let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]; 
@@ -43,10 +43,10 @@ function displayForecast(response){
     forecastHTML + `
             
              <div class = "col-2">
-               <div class = "weather-forecast-date">${formatDate(forecastDay.dt)}</div>
+               <div class = "weather-forecast-date">${formatDate(forcastDay.dt)}</div>
                ${index}
                <img
-               src = "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forecastDay.weather[0].icon}.png"
+               src = "http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${forcastDay.weather[0].icon}.png"
                alt = ""
                width = "46"
             />
@@ -67,6 +67,7 @@ function displayForecast(response){
 }
 
 function getForecast (coordinates){
+    console.log(coordinates);
     let apiKey = "4t499e5cbb23dd05b04o16b8befa8cff";
     let apiUrl = `http://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
     axios.get(apiUrl).then(displayForecast);
@@ -85,17 +86,20 @@ function displayTemperature(response) {
     fahrenheitTemperature = response.data.main.temp;
 
 
-    temperatureElement.innerHTML = Math.round(response.data.temperature.current);
-    cityElement.innerHTML = response.data.city;
-    descriptionElement.innerHTML = response.data.condition.description;
+
+    temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
+    cityElement.innerHTML = response.data.name;
+    descriptionElement.innerHTML = response.data.condition[0].description;
     humidityElement.innerHTML = response.data.temperature.humidity;
-    windElement.innerHTML = Math.round(response.data.wind.speed);
+    windElement.innerHTML = Math.round(response.data.wind.speed * 3.6);
     dateElement.innerHTML = formatDate(response.data.time * 1000);
     iconElement.setAttribute(
         "scr",
-        `https://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
+        `https://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition[0].icon}.png`
     );
-    iconElement.setAttribute("alt", response.data.condition.description);
+    iconElement.setAttribute("alt", response.data.condition[0].description);
+
+    getForecast(response.data.coordinates);
 }
 
 
@@ -114,9 +118,11 @@ function handleSubmit(event) {
 
 function displayFahrenheitTemperature(event) {
     event.preventDefault();
-    let fahrenheitTemperature = (14 * 9) / 5 + 32;
-
     let temperatureElement = document.querySelector("#temperature");
+
+    celsiusLink.classList.remove("active");
+    fahrenheitLink.remove("active");
+    let fahrenheitTemperature = (celsiusTemperature * 9) / 5 + 32;
     temperatureElement.innerHTML = Math.round(fahrenheitTemperature);
 }
 
